@@ -3,6 +3,7 @@ import { LoginDto } from './dto/logindto';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { comparePassword, encodePassword } from 'src/utils/bcrypt';
+import { TockenBlackListingService } from './tokenblacklisting.service';
 
 @Injectable()
 export class AuthService {
@@ -10,6 +11,7 @@ export class AuthService {
     constructor(
         private userService:UsersService,
         private readonly jwtService: JwtService,
+        private readonly tokenblacklistingService:TockenBlackListingService
     ){}
 
     async login(loginDto:LoginDto){
@@ -35,6 +37,9 @@ export class AuthService {
             'access-token':token
         }
 
-        
+    }
+
+    async refresh(token:string){
+        return await this.tokenblacklistingService.add(token)
     }
 }
