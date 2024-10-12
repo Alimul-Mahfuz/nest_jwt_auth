@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { CreateUserDto } from "../dto/create-user.dto";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Post } from "src/posts/entities/post.entity";
 @Entity()
 export class User {
     @PrimaryGeneratedColumn()
@@ -20,6 +20,10 @@ export class User {
         nullable:false
     })
     password:string
+
+
+    @OneToMany(()=>Post,(post)=>post.user)
+    post:Post[]
 
 
     constructor(user:Partial<User>) {

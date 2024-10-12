@@ -20,8 +20,8 @@ export class UsersService {
       const password = await encodePassword(createUserDto.password)
       const user = new User(createUserDto)
       user.password = password
-      this.userEntityManager.save(user)
-      return "User saved to the database"
+      const savedUser = await this.userEntityManager.save(user)
+      return savedUser
     } catch (error) {
       return error
     }
@@ -33,8 +33,11 @@ export class UsersService {
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    return await this.userRepository.findOne({
+      where:{id},
+      select:["id","name","email"]
+    })
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
