@@ -8,6 +8,6 @@ import { PostsModule } from './posts/posts.module';
 @Module({
   imports: [DatabaseModule,ConfigModule.forRoot({isGlobal:true}), UsersModule, AuthModule, PostsModule],
   controllers: [],
-  providers: [UsersModule],
+  providers: [UsersModule,AuthModule],
 })
 export class AppModule {}

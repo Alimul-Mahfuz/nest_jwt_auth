@@ -11,6 +11,7 @@ import { TockenBlackListingService } from './tokenblacklisting.service';
 
 
 @Module({
+  exports:[TockenBlackListingService],
   imports:[
     TypeOrmModule.forFeature([BlacklistedToken]),
     UsersModule,

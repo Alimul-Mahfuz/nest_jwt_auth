@@ -52,7 +52,6 @@ export class AuthService {
             email: newUser.email
         }
 
-        console.log(loginPaylod)
 
         const {password,...userInfo}=newUser
         const token = await this.jwtService.signAsync(loginPaylod)

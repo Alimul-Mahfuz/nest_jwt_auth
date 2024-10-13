@@ -12,12 +12,13 @@ export class TockenBlackListingService {
         private readonly entityManager: EntityManager
     ) { }
 
-    async add(token:{token: string}) {
+    async add(token: { token: string }) {
         try {
             const newEntry = new BlacklistedToken(token)
 
-            await this.entityManager.save(newEntry)
-            return true
+            const tokenEntry = await this.entityManager.save(newEntry)
+            
+            return tokenEntry
 
         } catch (error) {
             return false
